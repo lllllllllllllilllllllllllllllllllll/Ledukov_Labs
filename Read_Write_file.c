@@ -23,7 +23,7 @@ enum read_status from_bmp( FILE* in, struct image* img, struct bmp_header const 
     uint32_t my = bmpH1.biHeight;
     uint32_t mx3 = (3*mx+3) & (-4);
     size_t st;
-    //���뢠��� 䠩��
+    //áç¨âë¢ ­¨¥ ä ©« 
     for(uint32_t i = 0; i < my; ++i){
         uint32_t n=numb_by_xy(mx, 0, i);
         st=fread(&(img->data[n]), sizeof(struct pixel), mx, in);
@@ -58,8 +58,8 @@ enum write_status to_bmp( FILE* file, struct image* img,struct bmp_header bmpH2 
 }//to_bmp
 
 uint8_t read_BMP(struct bmp_header* bmpH1, struct image *img1) {
-    const char* filename= "C:\\Ci\\11.bmp";
-    //const char* filename= read_filename("Input filename-source: \n");
+    //const char* filename= "C:\\Ci\\11.bmp";
+    const char* filename= read_filename("Input filename-source: \n");
     FILE* file;
     file=fopen(filename, "rb");
     if(file == NULL) {
