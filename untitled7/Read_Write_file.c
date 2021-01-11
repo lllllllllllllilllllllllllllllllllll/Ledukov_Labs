@@ -57,31 +57,32 @@ enum write_status to_bmp( FILE* file, struct image* img,struct bmp_header bmpH2 
     return WRITE_OK;
 }//to_bmp
 
-uint8_t read_BMP(struct bmp_header* bmpH1, struct image *img1) {
-    const char* filename= "C:\\Ci\\11.bmp";
-    //const char* filename= read_filename("Input filename-source: \n");
+struct image * read_BMP(struct bmp_header* bmpH1) {
+    struct image *img1=NULL;
+    //const char* filename= "C:\\Ci\\11.bmp";
+    const char* filename= read_filename("Input filename-source: \n");
     FILE* file;
     file=fopen(filename, "rb");
     if(file == NULL) {
         printf("File <%s> not found", filename);
-        return 1;
+        return NULL;
     }
     enum read_status rs=read_header(file,bmpH1);
     if (rs==READ_OK){
         uint32_t my = bmpH1->biWidth;
         uint32_t mx = bmpH1->biHeight;
-        create_img(mx, my, img1);
+        img1=create_img(mx, my);
         rs=from_bmp( file, img1, *bmpH1);
         fclose(file);
         if (rs==READ_OK) {
-            return 0;
+            return img1;
         }
         fprintf(stderr,"Error image in file <%s>", filename);
         destroy_img(img1);
     }
     fprintf(stderr,"Error Header in file <%s>", filename);
     fclose(file);
-    return 1;
+    return NULL;
 }//read_BMP
 
 uint8_t save_BMP(FILE *file, struct image* img2, const char *filename, struct bmp_header const bmpH2) {

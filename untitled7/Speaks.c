@@ -7,4 +7,3 @@ const char *read_filename(const char * filename) {
     return fn;
 }
 
-

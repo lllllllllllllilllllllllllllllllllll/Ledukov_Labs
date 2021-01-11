@@ -45,11 +45,11 @@ struct image {
     struct pixel* data;
 };
 
-void create_img(const uint64_t w, const uint64_t h, struct image *img);
+struct image * create_img(const uint64_t w, const uint64_t h);
 void destroy_img(struct image *img);
 
 uint32_t numb_by_xy(const uint32_t width, const uint32_t x, const uint32_t y);
-void create_bmp_header( const uint32_t w, const uint32_t h, struct bmp_header* bmpH2);
+struct bmp_header create_bmp_header( const uint32_t w, const uint32_t h);
 
 /* создаёт копию изображения, которая повёрнута на 90 градусов */
 struct image rotate(const struct image source);
@@ -58,7 +58,7 @@ enum read_status read_header( FILE* in, struct bmp_header* bmpH1);
 enum write_status write_header( FILE* file, struct bmp_header const bmpH2);
 enum read_status from_bmp( FILE* in, struct image* img, struct bmp_header const bmpH1);
 enum write_status to_bmp( FILE* file, struct image* img, struct bmp_header bmpH2 );
-uint8_t read_BMP(struct bmp_header* bmpH1, struct image *img1);
+struct image * read_BMP(struct bmp_header* bmpH1);
 uint8_t save_BMP(FILE *file, struct image* img2, const char *filename, struct bmp_header const bmpH2);
 const char *read_filename(const char * filename);
 
